@@ -25,4 +25,9 @@ public class Tarefa {
     private LocalDateTime criadoEm;
     private LocalDateTime atualiazadoEm;
 
+
+    @Override
+    public String toString() {
+        return "(id="+this.id+", titulo="+this.titulo+", descricao="+this.descricao+", status="+this.status+", finalizado="+this.finalizado+", criadoEm="+this.criadoEm+", atualizadoEm="+this.atualiazadoEm+")";
+    }
 }

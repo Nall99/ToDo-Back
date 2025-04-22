@@ -3,10 +3,10 @@ package com.Nall99.ToDo_Back.services;
 import com.Nall99.ToDo_Back.dtos.TarefaDTO;
 import com.Nall99.ToDo_Back.models.Tarefa;
 import com.Nall99.ToDo_Back.repositories.TarefaRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,21 +16,32 @@ public class TarefaService {
     @Autowired
     TarefaRepository tarefaRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
-
     // Converte TarefaDTO para Tarefa
     public Tarefa converterParaEntity(TarefaDTO tarefaDTO){
-        return modelMapper.map(tarefaDTO, Tarefa.class);
+        Tarefa tarefaModel = new Tarefa();
+        tarefaModel.setId(tarefaDTO.id());
+        tarefaModel.setTitulo(tarefaDTO.titulo());
+        tarefaModel.setDescricao(tarefaDTO.descricao());
+        tarefaModel.setStatus(tarefaDTO.status());
+        return tarefaModel;
     }
 
     // Converte Tarefa para TarefaDTO
-    public TarefaDTO converterParaDTO(Tarefa tarefa){
-        return modelMapper.map(tarefa, TarefaDTO.class);
+    private TarefaDTO converterParaDTO(Tarefa tarefa) {
+        return new TarefaDTO(
+                tarefa.getId(),
+                tarefa.getTitulo(),
+                tarefa.getDescricao(),
+                tarefa.getStatus(),
+                tarefa.isFinalizado(),
+                tarefa.getCriadoEm(),
+                tarefa.getAtualiazadoEm()
+        );
     }
 
     public String salvar(TarefaDTO tarefa){
         Tarefa tarefaModel = converterParaEntity(tarefa);
+        tarefaModel.setCriadoEm(LocalDateTime.now());
         tarefaRepository.save(tarefaModel);
         return "Tarefa salva com sucesso!";
     }
@@ -40,6 +51,8 @@ public class TarefaService {
         if(tarefa.isPresent()){
             Tarefa tarefaAtualizadaModel = converterParaEntity(tarefaAtualizada);
             tarefaAtualizadaModel.setId(id);
+            tarefaAtualizadaModel.setAtualiazadoEm(LocalDateTime.now());
+            tarefaAtualizadaModel.setCriadoEm(tarefa.get().getCriadoEm());
             this.tarefaRepository.save(tarefaAtualizadaModel);
             return "Tarefa atualizada com sucesso";
         }else{
@@ -66,10 +79,6 @@ public class TarefaService {
 
     public TarefaDTO buscarPorId(Long id){
         Optional<Tarefa> tarefa = this.tarefaRepository.findById(id);
-        if(tarefa.isPresent()){
-            return modelMapper.map(tarefa.get(), TarefaDTO.class);
-        }else {
-            return null;
-        }
+        return tarefa.map(this::converterParaDTO).orElse(null);
     }
 }

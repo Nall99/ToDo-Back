@@ -6,7 +6,7 @@ public record TarefaDTO(
         Long id,
         String titulo,
         String descricao,
-        String  status,
+        String status,
         boolean finalizado,
         LocalDateTime criadoEm,
         LocalDateTime atualizadoEm

@@ -57,7 +57,7 @@ public class TarefaController {
     }
 
     @GetMapping("/buscarPorId/{id}")
-    public ResponseEntity<TarefaDTO> buscarPorId(Long id){
+    public ResponseEntity<TarefaDTO> buscarPorId(@PathVariable Long id){
         try{
             TarefaDTO tarefaDTO = this.tarefaService.buscarPorId(id);
             return new ResponseEntity<TarefaDTO>(tarefaDTO, HttpStatus.OK);
