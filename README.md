@@ -1,5 +1,5 @@
 # 📝 ToDo-Back
-Back-end do projeto ToDo App, desenvolvido em Java com Spring Boot, responsável por gerenciar tarefas (To-Do List). Este projeto se comunica com o front-end Angular disponível no repositório (ToDo-Front)[https://github.com/Nall99/ToDo-Front].
+Back-end do projeto ToDo App, desenvolvido em Java com Spring Boot, responsável por gerenciar tarefas (To-Do List). Este projeto se comunica com o front-end Angular disponível no repositório [ToDo-Front]([https://github.com/Nall99/ToDo-Front).
 
 ## 🚀 Tecnologias Utilizadas
 - Java 17+
@@ -93,4 +93,4 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 
 ## 🔗 Front-end
 O front-end Angular está disponível no repositório:
-➡️ (ToDo-Front)[https://github.com/Nall99/ToDo-Front]
+➡️ [ToDo-Front]([https://github.com/Nall99/ToDo-Front)
